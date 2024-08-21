@@ -1,0 +1,6 @@
+LOAD DATA INFILE '/Users/sanjaysanju/Desktop/hsbc/HSBC.csv'
+INTO TABLE HSBC_Transactions
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY "'"
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
