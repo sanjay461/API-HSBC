@@ -1,0 +1,149 @@
+Overview
+
+This project involves creating a financial data dashboard that provides aggregated and normalized financial data through a RESTful API, with a React-based frontend for visualizing the data. The backend is developed using FastAPI, and the database used is MySQL.
+
+Table of Contents
+
+	1.	Project Structure
+	2.	Setup Instructions
+	•	Backend Setup
+	•	Frontend Setup
+	3.	Usage
+	•	Running the Backend
+	•	Running the Frontend
+	4.	API Documentation
+	•	Authentication
+	•	Data Retrieval
+	•	Aggregation Endpoints
+	5.	Additional Notes
+	•	Error Handling
+	•	Enhancements
+	financial-dashboard/
+│
+├── backend/
+│   ├── main.py          # FastAPI application with endpoints
+│   ├── import_csv_to_db.py # Script to import CSV data to MySQL
+│   ├── requirements.txt # Python dependencies
+│   └── .env             # Environment variables (not included)
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/  # React components (Login, Dashboard, Filters)
+│   │   ├── App.js       # Main React app component
+│   │   └── index.js     # React entry point
+│   ├── package.json     # Frontend dependencies
+│   └── README.md        # Frontend-specific instructions
+│
+└── README.md            # Project documentation (this file)
+Setup Instructions
+
+Backend Setup
+
+1. Install Dependencies
+
+	1.	Create a virtual environment (optional but recommended):
+	python3 -m venv env
+source env/bin/activate   # On Windows: .\env\Scripts\activate
+2.	Install Python dependencies:
+pip install -r backend/requirements.txt
+2. MySQL Setup
+
+	1.	Install MySQL:
+	•	Install MySQL on your system. You can download it from MySQL Downloads.
+	2.	Create a Database:
+	•	Create a database named financial_data:
+	CREATE DATABASE financial_data;
+	3.	Configure .env File:
+	•	Create a .env file in the backend/ directory with the following contents:
+	DATABASE_URL="mysql://username:password@localhost/financial_data"
+	Import CSV Data:
+	•	Run the import_csv_to_db.py script to import the data:
+	python backend/import_csv_to_db.py
+3. Running the Backend
+
+	1.	Run the FastAPI server:
+	uvicorn backend.main:app --reload
+	2.	Access the API:
+	•	The API is available at http://127.0.0.1:8000.
+Frontend Setup
+
+	1.	Navigate to the frontend/ directory:
+	cd frontend
+	2.	Install npm dependencies:
+	npm install
+	3.	Run the React development server:
+	npm start
+	4.	Access the Frontend:
+	•	The frontend is available at http://localhost:3000.
+Usage
+
+Running the Backend
+
+	1.	Ensure your MySQL server is running.
+	2.	Start the FastAPI server as described above.
+	3.	Use tools like Postman or the built-in FastAPI docs at http://127.0.0.1:8000/docs to interact with the API.
+
+Running the Frontend
+
+	1.	Ensure the backend is running.
+	2.	Start the React development server as described above.
+	3.	Access the frontend at http://localhost:3000.
+API Documentation
+Authentication
+
+	•	POST /login
+	•	Description: Authenticates the user and returns a JWT token.
+	•	Body:
+	json
+	{
+  "username": "admin",
+  "password": "password"
+}
+•	Response:
+{
+  "access_token": "your_jwt_token"
+}
+Data Retrieval
+
+	•	GET /api/data
+	•	Description: Retrieve financial transaction data with optional filters.
+	•	Query Parameters:
+	•	category: Filter by transaction category.
+	•	min_amount: Filter by minimum transaction amount.
+	•	max_amount: Filter by maximum transaction amount.
+	•	step_start: Filter by starting step.
+	•	step_end: Filter by ending step.
+	•	page: Page number (for pagination).
+	•	page_size: Number of items per page.
+	•	Response: A list of transactions matching the criteria.
+
+Aggregation Endpoints
+
+	•	GET /api/aggregate/customer
+	•	Description: Aggregates transaction data by customer.
+	•	Response:
+	[
+  {
+    "customer": "C123456789",
+    "total_spent": 5000,
+    "transaction_count": 10,
+    "average_amount": 500
+  },
+  ...
+]
+	GET /api/aggregate/category
+	•	Description: Aggregates transaction data by category.
+	•	Response:
+	[
+  {
+    "category": "es_transportation",
+    "total_spent": 2000,
+    "transaction_count": 5,
+    "average_amount": 400
+  },
+  ...
+]
+
+This documentation provides an overview and instructions on setting up and running your financial data dashboard project.
+
